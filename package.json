@@ -1,0 +1,22 @@
+{
+  "name": "nodemailer-quick-start",
+  "version": "1.0.0",
+  "description": "face to practical workflow, get started with nodemailer quickly.",
+  "main": "index.js",
+  "author": "pomelott",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^14.14.10",
+    "typescript": "^4.1.2"
+  },
+  "scripts": {
+    "build": "npx tsc",
+    "start": "npx tsc && node index.js"
+  },
+  "dependencies": {
+    "@types/lodash": "^4.14.165",
+    "@types/nodemailer": "^6.4.0",
+    "lodash": "^4.17.20",
+    "nodemailer": "^6.4.16"
+  }
+}
