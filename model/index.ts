@@ -21,7 +21,7 @@ const customSendConf  = {
 export default () => {
   coreEvent.register("initModel", "default", (): TriggerAllFnResolveValue => {
     return {
-        transport: customTransport || transportDefault,
+        transport: (customTransport && customTransport.auth.user && customTransport.auth.pass) || transportDefault,
         conf: customSendConf || sendConfDefault
     }
   })

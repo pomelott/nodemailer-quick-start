@@ -1,6 +1,6 @@
 {
   "name": "nodemailer-quick-start",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "face to practical workflow, get started with nodemailer quickly.",
   "main": "index.js",
   "author": "pomelott",
@@ -16,7 +16,6 @@
   "dependencies": {
     "@types/lodash": "^4.14.165",
     "@types/nodemailer": "^6.4.0",
-    "lodash": "^4.17.20",
     "nodemailer": "^6.4.16"
   }
 }

@@ -1,6 +1,3 @@
-import _ from "lodash";
-
-
 export type TriggerFnPromise = boolean | Promise<boolean | object>;
 
 export type TriggerFnPromiseAll = Array<TriggerFnPromise>;
@@ -9,8 +6,7 @@ export type TriggerItemFnReturnValue = boolean | {};
 
 export type TriggerAllFnResolveSuccessValue = {
   [key:string]: any,
-  status?: 0|1,
-  data?: object
+  status?: 0|1
 }
 
 export type TriggerAllFnResolveValue = TriggerAllFnResolveSuccessValue | boolean;
@@ -29,15 +25,6 @@ export interface CoreEvent {
 
 let coreEvent:CoreEvent = {};
 
-function _mergeData (target: Array<TriggerItemFnReturnValue>) {
-  var temp = {};
-  target.forEach((item) => {
-    if (typeof item !== typeof true) {
-      temp = _.merge(temp, item);
-    }
-  })
-  return temp;
-}
 
 function register (type:string, mark:string, fn: CoreEventFunction) {
   if (!coreEvent[type]) {
@@ -48,7 +35,7 @@ function register (type:string, mark:string, fn: CoreEventFunction) {
 }
 
 function trigger (type:string, data?:any, mark?:string):TriggerAllFnReturnValue{
-  let fns = coreEvent[type], pro:TriggerFnPromiseAll = [];
+  let fns = coreEvent[type], pro:TriggerFnPromiseAll = [], resolveData:Array<any> = [];
   if (!fns) return false;
   if (mark) {
     pro.push(new Promise(async (resolve, reject) => {
@@ -58,22 +45,24 @@ function trigger (type:string, data?:any, mark?:string):TriggerAllFnReturnValue{
     for (let index in fns) {
       if (fns.hasOwnProperty(index)) {
         pro.push(new Promise(async (resolve, reject) => {
-          resolve(await fns[index](data))
+          let temp = await fns[index](data);
+          resolveData.push(temp)
+          resolve(true)
         }))
       }
     }
   }
   return new Promise(async (resolve, reject) => {
     let proAll = await Promise.all(pro),
-        resolveData:TriggerAllFnResolveSuccessValue = {
+        msg:TriggerAllFnResolveSuccessValue = {
           status: 0,
-          data: _mergeData(proAll)
+          data: resolveData
         };
     if (proAll.length && proAll.indexOf(false) === -1) {
-      resolve(resolveData)
+      resolve(msg)
     } else {
-      resolveData.status = 1;
-      resolve(resolveData)
+      msg.status = 1;
+      resolve(msg)
     }
   })
 }
