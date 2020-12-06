@@ -12,11 +12,9 @@ async function main() {
   registerCore();
 
   checkStd = await coreEvent.trigger("checkCondition", new Date().getTime());
-  console.log(checkStd)
   if (checkStd && (checkStd as TriggerAllFnResolveSuccessValue).status === 0) {
     console.log("all check passed !");
     modelStd = await coreEvent.trigger("initModel", (checkStd as TriggerAllFnResolveSuccessValue).data[0]);
-    console.log(modelStd)
     actionStd = await coreEvent.trigger("sendMail", (modelStd as TriggerAllFnResolveSuccessValue).data[0]);
   }
 
