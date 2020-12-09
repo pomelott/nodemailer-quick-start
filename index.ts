@@ -1,25 +1,38 @@
 "use strict";
 
 import coreEvent, {TriggerAllFnResolveSuccessValue, TriggerAllFnResolveValue} from "./_platform/lib/coreEvent";
-import registerCore from "./_platform/register";
+import nodemailer from "nodemailer";
+// import {TypefaceMainParam, TypefaceMainParamWithVoid} from "./_platform/type";
+import {InterfaceMainParam} from "./_platform/interface";
+import * as defaultMainParam from "./example/default/index"
 
-async function main() {
 
-  let checkStd: TriggerAllFnResolveValue,
-      modelStd: TriggerAllFnResolveValue,
-      actionStd: TriggerAllFnResolveValue;
 
-  registerCore();
+export default async (param?: InterfaceMainParam) => {
 
-  checkStd = await coreEvent.trigger("checkCondition", new Date().getTime());
-  if (checkStd && (checkStd as TriggerAllFnResolveSuccessValue).status === 0) {
-    console.log("all check passed !");
-    modelStd = await coreEvent.trigger("initModel", (checkStd as TriggerAllFnResolveSuccessValue).data[0]);
-    actionStd = await coreEvent.trigger("sendMail", (modelStd as TriggerAllFnResolveSuccessValue).data[0]);
+  try {
+
+    let checkStd: TriggerAllFnResolveValue,
+        modelStd: TriggerAllFnResolveValue,
+        actionStd: TriggerAllFnResolveValue;
+    if (!param) {
+      param = defaultMainParam;
+    }
+
+    let {checkCondition, initModel, sendMail} = param as InterfaceMainParam;
+
+    coreEvent.register("checkCondition", "default", checkCondition);
+    coreEvent.register("initModel", "default", initModel);
+    coreEvent.register("sendMail", "default", sendMail);
+
+
+    checkStd = await coreEvent.trigger("checkCondition");
+    modelStd = await coreEvent.trigger("initModel", {checkStd, baseModel: {}});
+    actionStd = await coreEvent.trigger("sendMail", {modelStd, nodemailer});
+
+    coreEvent.gc();
+  } catch (err) {
+    console.error(err)
   }
 
-  coreEvent.gc();
-
 }
-
-main().catch(console.error);

@@ -2,6 +2,8 @@
 
 face to practical workflow, get started with nodemailer quickly. benefit from this, please star !
 
+* v2 would be come out later
+
 ## platform
 
 * Condition
