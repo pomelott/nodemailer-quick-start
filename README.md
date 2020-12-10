@@ -44,13 +44,13 @@ quickStart();
 ```js
 const quickStart = require("nodemailer-quick-start");
 quickStart({
-  initModel (msg) {
+  initModel (modelHandler) {
     // need to return mail model for sending mail
-    return msg.baseModel;
+    return modelHandler.baseModel;
   },
-  async sendMail (msg) {
-    let {transportDefault, sendConfDefault} = msg.modelStd.data[0];
-    let transporter, {nodemailer} = msg;
+  async sendMail (mailHandler) {
+    let {transportDefault, sendConfDefault} = mailHandler.modelStd.data[0];
+    let transporter, {nodemailer} = mailHandler;
     // take smtp transport for an example
     transportDefault = {
       host: "smtp.exmail.qq.com",
@@ -92,12 +92,13 @@ quickStart({
       }
       return true;
     },
-    initModel (msg) {
-      return msg.baseModel;
+    initModel (modelHandler) {
+      console.log(modelHandler.checkStd); // the return value from checkCondition
+      return modelHandler.baseModel;
     },
-    async sendMail (msg) {
-      let {transportDefault, sendConfDefault} = msg.modelStd.data[0];
-      let transporter, {nodemailer} = msg;
+    async sendMail (mailHandler) {
+      let {transportDefault, sendConfDefault} = mailHandler.modelStd.data[0];
+      let transporter, {nodemailer} = mailHandler;
       // take smtp transport for an example
       transportDefault = {
         host: "smtp.exmail.qq.com",
