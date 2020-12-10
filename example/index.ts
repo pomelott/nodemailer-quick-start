@@ -1,20 +1,11 @@
 import quickStart from "../index";
-import {InterfaceRegisterFnParam} from "../_platform/interface"
 
-quickStart({
-  checkCondition () {
-    console.log("check condition");
-    return true;
-  },
-  initModel (msg:InterfaceRegisterFnParam) {
-    console.log(msg)
-    return {
-      model: "test model"
-    }
-  },
-  sendMail (msg: InterfaceRegisterFnParam) {
-    console.log(msg)
-  },
-})
+import * as customMainParam from "./custom/index";
 
-// quickStart();
+switch (process.argv[2]) {
+  case "custom":
+    quickStart(customMainParam);
+    break;
+  default:
+    quickStart();
+}

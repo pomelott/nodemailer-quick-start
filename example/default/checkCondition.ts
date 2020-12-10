@@ -1,3 +1,6 @@
 export default () => {
-  return true;
+  return new Promise((resolve) => {
+    resolve(true);
+    console.log("checkCondition passed !");
+  })
 }

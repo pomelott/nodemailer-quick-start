@@ -23,14 +23,20 @@ export interface CoreEvent {
   }
 };
 
+
 let coreEvent:CoreEvent = {};
 
 
-function register (type:string, mark:string, fn: CoreEventFunction) {
+function register (type:string, mark?:string, fn?: CoreEventFunction) {
+  if (!fn) return;
   if (!coreEvent[type]) {
       coreEvent[type] = {};
   }
-  coreEvent[type][mark] = fn;
+  if (!mark) {
+    mark = "default";
+  }
+
+  coreEvent[type][mark] = fn as CoreEventFunction;
   return true;
 }
 
@@ -38,12 +44,18 @@ function trigger (type:string, data?:any, mark?:string):TriggerAllFnReturnValue{
   let fns = coreEvent[type], pro:TriggerFnPromiseAll = [], resolveData:Array<any> = [];
   if (!fns) return false;
   if (mark) {
+    if (!fns[mark]) {
+      return false;
+    }
     pro.push(new Promise(async (resolve, reject) => {
       resolve(await fns[mark](data))
     }))
   } else {
     for (let index in fns) {
       if (fns.hasOwnProperty(index)) {
+        if (!fns[index]) {
+          continue;
+        }
         pro.push(new Promise(async (resolve, reject) => {
           let temp = await fns[index](data);
           resolveData.push(temp)

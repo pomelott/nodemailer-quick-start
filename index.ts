@@ -1,14 +1,14 @@
 "use strict";
 
-import coreEvent, {TriggerAllFnResolveSuccessValue, TriggerAllFnResolveValue} from "./_platform/lib/coreEvent";
+import coreEvent, {TriggerAllFnResolveValue} from "./_platform/lib/coreEvent";
 import nodemailer from "nodemailer";
 // import {TypefaceMainParam, TypefaceMainParamWithVoid} from "./_platform/type";
 import {InterfaceMainParam} from "./_platform/interface";
 import * as defaultMainParam from "./example/default/index"
+import * as baseModel from "./_platform/static";
 
 
-
-export default async (param?: InterfaceMainParam) => {
+async function quickStart (param?: InterfaceMainParam) {
 
   try {
 
@@ -27,7 +27,7 @@ export default async (param?: InterfaceMainParam) => {
 
 
     checkStd = await coreEvent.trigger("checkCondition");
-    modelStd = await coreEvent.trigger("initModel", {checkStd, baseModel: {}});
+    modelStd = await coreEvent.trigger("initModel", {checkStd, baseModel});
     actionStd = await coreEvent.trigger("sendMail", {modelStd, nodemailer});
 
     coreEvent.gc();
@@ -36,3 +36,5 @@ export default async (param?: InterfaceMainParam) => {
   }
 
 }
+
+export = quickStart;

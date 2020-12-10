@@ -10,10 +10,10 @@ export const transportDefault = {
 }
 
 export const sendConfDefault = {
-  from: `"👻 Node Robot 👻" <foo@example.com>`, // sender address
+  from: `"👻 nodemailer-quick-start notice 👻" <foo@example.com>`, // sender address
   to: `"user" <bar@example.com>`, // list of receivers
   subject: "Nodemailer-quick-start test mail", // Subject line
-  text: "Hello world !", // plain text body
-  html: "<b>Hello world? nodemailer quick-start !</b>", // html bod
+  text: "Hello nodemailer-quick-start !", // plain text body
+  html: "<b>Hello nodemailer-quick-start ! test mail succeed, for more information please view <a>https://github.com/pomelott</a> </b>", // html bod
 }
 

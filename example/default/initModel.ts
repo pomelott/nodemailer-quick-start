@@ -1,9 +1,8 @@
 import {InterfaceRegisterFnParam} from "../../_platform/interface";
 export default (msg: InterfaceRegisterFnParam) => {
-  console.log("default init model.")
-  console.log(msg)
-  return {
-    conditionMsg: "check msg",
-    baseModel: {}
+  if (msg.checkStd.data.indexOf(false) !== -1) {
+    console.log("condition for sending mail not met !")
+    process.exit(0);
   }
+  return msg.baseModel;
 }
