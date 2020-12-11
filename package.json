@@ -1,6 +1,6 @@
 {
   "name": "nodemailer-quick-start",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "face to practical workflow, get started with nodemailer quickly.",
   "main": "index.js",
   "author": "pomelott",
@@ -10,6 +10,11 @@
     "ts-node": "^9.1.1",
     "typescript": "^4.1.2"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pomelott/nodemailer-quick-start.git"
+  },
+  "homepage": "https://github.com/pomelott/nodemailer-quick-start#readme",
   "scripts": {
     "build": "npx tsc -d -m commonjs --removeComments --target es6",
     "debug": "nodemon --watch example/index.ts --exec node -r ts-node/register example/index.ts",
