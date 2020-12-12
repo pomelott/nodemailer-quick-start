@@ -2,21 +2,11 @@
 
 face to practical workflow, get started with nodemailer quickly. benefit from this, please star !
 
-* benefit from this, please start for encouragement.
+* benefit from this, please start✨ for encouragement.
 
-## platform
+## description
 
-* Condition
-
-    custom your own condition for sending mail.
-
-* model
-
-    custom your own mail model or use default.
-
-* action
-
-    just do sending mail with nodemailer quickly.
+nodemailer-quick-start split the sending-mail process into three steps, checkCondition、initModel、sendMail. and checkCondition is not necessary but the last two steps.
 
 ## fast use
 

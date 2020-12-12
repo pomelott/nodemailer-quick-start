@@ -1,6 +1,6 @@
 {
   "name": "nodemailer-quick-start",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "face to practical workflow, get started with nodemailer quickly.",
   "main": "index.js",
   "author": "pomelott",
